@@ -27,7 +27,7 @@ struct ExampleService {
 }
 
 impl tokio_modbus::server::Service for ExampleService {
-    type Request = Request<'static>;
+    type Request = ClientRequest<'static>;
     type Response = Response;
     type Exception = ExceptionCode;
     type Future = future::Ready<Result<Self::Response, Self::Exception>>;

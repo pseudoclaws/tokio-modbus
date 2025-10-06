@@ -34,6 +34,9 @@ pub use crate::{ExceptionCode, ProtocolError, Request, Response, Slave, SlaveId}
 #[cfg(feature = "server")]
 pub use crate::frame::SlaveRequest;
 
+#[cfg(feature = "server")]
+pub use crate::frame::ClientRequest;
+
 ///////////////////////////////////////////////////////////////////
 /// Traits
 ///////////////////////////////////////////////////////////////////

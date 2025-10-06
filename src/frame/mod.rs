@@ -312,6 +312,29 @@ impl SlaveRequest<'_> {
     }
 }
 
+/// A Modbus request with transaction id included
+#[cfg(feature = "server")]
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ClientRequest<'a> {
+    /// Transaction Id from the request
+    pub transaction_id: tcp::TransactionId,
+    /// A `Request` enum
+    pub request: Request<'a>,
+}
+
+#[cfg(feature = "server")]
+impl ClientRequest<'_> {
+    /// Converts the request into an owned instance with `'static'` lifetime.
+    #[must_use]
+    pub fn into_owned(self) -> ClientRequest<'static> {
+        let Self { transaction_id, request } = self;
+        ClientRequest {
+            transaction_id,
+            request: request.into_owned(),
+        }
+    }
+}
+
 /// The data of a successful request.
 ///
 /// ReadCoils/ReadDiscreteInputs: The length of the result Vec is always a
