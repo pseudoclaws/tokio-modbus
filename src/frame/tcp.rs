@@ -39,3 +39,13 @@ impl<'a> From<RequestAdu<'a>> for SlaveRequest<'a> {
         }
     }
 }
+
+#[cfg(feature = "server")]
+impl<'a> From<RequestAdu<'a>> for ClientRequest<'a> {
+    fn from(from: RequestAdu<'a>) -> Self {
+        Self {
+            transaction_id: from.hdr.transaction_id,
+            request: from.pdu.into(),
+        }
+    }
+}
